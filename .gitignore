@@ -44,7 +44,6 @@ settings.yaml
 package-lock.json
 
 # Everything in the data directory
-data/
 
 # Built files
 dist/

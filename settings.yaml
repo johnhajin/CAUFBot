@@ -1,0 +1,43 @@
+telegram:
+  useFirstNameInsteadOfUsername: false
+  colonAfterSenderName: false
+  skipOldMessages: true
+  sendEmojiWithStickers: true
+  useCustomEmojiFilter: false
+  replaceAtWithHash: false
+  replaceExcessiveSpaces: false
+  removeNewlineSpaces: false
+  suppressFileTooBigMessages: false
+  suppressThisIsPrivateBotMessage: false
+  token: 7284808637:AAE84c6i7z9BnzgOVRFoS06dGJoaIdASNns
+discord:
+  skipOldMessages: true
+  useNickname: false
+  replyLength: 100
+  maxReplyLines: 2
+  suppressThisIsPrivateBotMessage: false
+  enableCustomStatus: false
+  customStatusMessage: TediCross
+  useEmbeds: auto
+  token: MTI3MDU1MDE4NTk0ODM0ODUwOQ.GerkOT.HjiGFj3JF4c1HZpGxsSgHTK_HTi1oSEBt03NDU
+debug: false
+messageTimeoutAmount: 24
+messageTimeoutUnit: hours
+persistentMessageMap: false
+bridges:
+  - name: First bridge
+    direction: both
+    telegram:
+      chatId: -1002224600330
+      relayJoinMessages: true
+      relayLeaveMessages: true
+      sendUsernames: true
+      crossDeleteOnDiscord: true
+    discord:
+      channelId: '1270552799767171177'
+      relayJoinMessages: true
+      relayLeaveMessages: true
+      sendUsernames: true
+      crossDeleteOnTelegram: true
+      disableWebPreviewOnTelegram: false
+      useEmbeds: auto

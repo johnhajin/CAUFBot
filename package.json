@@ -28,7 +28,7 @@
     "cli-highlight": "2.1.11",
     "discord.js": "14.15.3",
     "eslint": "8.57.0",
-    "eslint-config-prettier": "9.0.0",
+    "eslint-config-prettier": "9.1.0",
     "eslint-plugin-prettier": "5.0.0",
     "googleapis": "^140.0.1",
     "he": "^1.2.0",

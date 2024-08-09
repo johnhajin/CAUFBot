@@ -38,10 +38,34 @@ function createTextObjFromMessage(ctx: TediCrossContext, message: Message) {
 		// Animation, audio, document, photo, video or voice
 		[
 			R.has<any>("caption"),
-			({ caption, caption_entities }: { caption: string; caption_entities: string }) => ({
-				raw: caption,
-				entities: R.defaultTo([], caption_entities)
-			})
+			({ caption, caption_entities }: { caption: string | undefined; caption_entities: any[] }) => {
+				// If caption is undefined or null, return an empty object or handle accordingly
+				if (typeof caption === 'undefined' || caption === null) {
+					return {
+						raw: caption, // Could also return an empty string or other default value
+						entities: R.defaultTo([], caption_entities)
+					};
+				}
+		
+				// Extract usernames from the caption
+				const usernames = extractUsernames(caption);
+		
+				// Initialize translatedText as the original caption
+				let translatedText = caption;
+		
+				// Replace each username with its translated equivalent
+				for (let username of usernames) {
+					const translatedUsername = translateUsername(username, "telegram");
+					const userId = getId(translatedUsername);
+					translatedText = translatedText.replace(new RegExp(`@${username}`, 'g'), `<@${userId}>`);
+				}
+		
+				// Return the transformed caption and the original caption entities
+				return {
+					raw: translatedText,
+					entities: R.defaultTo([], caption_entities)
+				};
+			}
 		],
 		// Stickers have an emoji instead of text
 		[
@@ -344,7 +368,9 @@ function addFromObj(ctx: TediCrossContext, next: () => void) {
         translatedText = translatedText.replace(new RegExp(`@${username}`, 'g'), `<@${userId}>`);
     }
 
-    ctx.tediCross.message.text = translatedText;
+	if (typeof text !== 'undefined' && text !== null) {
+		ctx.tediCross.message.text = translatedText;
+    }
 	
 	ctx.tediCross.from = createFromObjFromMessage(ctx.tediCross.message);
 	next();
@@ -733,6 +759,9 @@ async function addPreparedObj(ctx: TediCrossContext, next: () => void) {
 }
 
 function extractUsernames(text:string) {
+	if (typeof text === 'undefined' || text === null) {
+        return []; // Return an empty array if text is undefined or null
+    }
     const usernamePattern = /@(\w+)/g;
     const matches = [...text.matchAll(usernamePattern)];
     const usernames = matches.map(match => match[1]);

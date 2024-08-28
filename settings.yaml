@@ -41,3 +41,70 @@ bridges:
       crossDeleteOnTelegram: true
       disableWebPreviewOnTelegram: false
       useEmbeds: auto
+  - name: United Front LVL
+    direction: both
+    telegram:
+      chatId: -1001687383119
+      relayJoinMessages: true
+      relayLeaveMessages: true
+      sendUsernames: true
+      crossDeleteOnDiscord: true
+    discord:
+      channelId: '949367255244865636'
+      relayJoinMessages: true
+      relayLeaveMessages: true
+      sendUsernames: true
+      crossDeleteOnTelegram: true
+      disableWebPreviewOnTelegram: false
+      useEmbeds: auto
+
+  - name: United Front Siege
+    direction: both
+    telegram:
+      chatId: -4077392002
+      relayJoinMessages: true
+      relayLeaveMessages: true
+      sendUsernames: true
+      crossDeleteOnDiscord: true
+    discord:
+      channelId: '960249034239524904'
+      relayJoinMessages: true
+      relayLeaveMessages: true
+      sendUsernames: true
+      crossDeleteOnTelegram: true
+      disableWebPreviewOnTelegram: false
+      useEmbeds: auto
+    
+  - name: Shipwrecked
+    direction: both
+    telegram:
+      chatId: -1001287971961
+      relayJoinMessages: true
+      relayLeaveMessages: true
+      sendUsernames: true
+      crossDeleteOnDiscord: true
+    discord:
+      channelId: '1184604720954867834'
+      relayJoinMessages: true
+      relayLeaveMessages: true
+      sendUsernames: true
+      crossDeleteOnTelegram: true
+      disableWebPreviewOnTelegram: false
+      useEmbeds: auto
+
+  - name: CAUF Bulletin
+    direction: both
+    telegram:
+      chatId: -1001654246295
+      relayJoinMessages: true
+      relayLeaveMessages: true
+      sendUsernames: true
+      crossDeleteOnDiscord: true
+    discord:
+      channelId: '726199105411612702'
+      relayJoinMessages: true
+      relayLeaveMessages: true
+      sendUsernames: true
+      crossDeleteOnTelegram: true
+      disableWebPreviewOnTelegram: false
+      useEmbeds: auto

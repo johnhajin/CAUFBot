@@ -196,14 +196,14 @@ export function setup(
 				// Append new mapping to the file
 				const newLine = `${senderName}:${id}\n`;
 				fs.appendFileSync(mappingsFilePath, newLine);
+
+				const channelHolder = message.channel
+				const userMention = `<@${message.author.id}>`;
+				channelHolder.send(`${userMention} Registration Successful! You can now receive Discord pings from Telegram`)
+					.then(() => console.log('Message sent successfully'))
+					.catch(console.error);
 				
 			} 
-
-			const channelHolder = message.channel
-			const userMention = `<@${message.author.id}>`;
-			channelHolder.send(`${userMention} Registration Successful! You can now receive Discord pings from Telegram`)
-				.then(() => console.log('Message sent successfully'))
-				.catch(console.error);
 		}
 		
 
@@ -290,19 +290,19 @@ export function setup(
 						const textToSend = bridge.discord.sendUsernames
 							? `<b>${senderName}</b>\n${finalMessageContent}`
 							: finalMessageContent;
-						// if (replyId === "0" || replyId === undefined) {
-						// 	const tgMessage = await tgBot.telegram.sendMessage(bridge.telegram.chatId, textToSend, {
-						// 		parse_mode: "HTML"
-						// 	});
-						//
-						// 	// Make the mapping so future edits can work
-						// 	messageMap.insert(
-						// 		MessageMap.DISCORD_TO_TELEGRAM,
-						// 		bridge,
-						// 		message.id,
-						// 		tgMessage.message_id.toString()
-						// 	);
-						// } else {
+						if (replyId === "0" || replyId === undefined) {
+							const tgMessage = await tgBot.telegram.sendMessage(bridge.telegram.chatId, textToSend, {
+								parse_mode: "HTML"
+							});
+						
+							// Make the mapping so future edits can work
+							messageMap.insert(
+								MessageMap.DISCORD_TO_TELEGRAM,
+								bridge,
+								message.id,
+								tgMessage.message_id.toString()
+							);
+						} else {
 						const tgMessage = await tgBot.telegram.sendMessage(bridge.telegram.chatId, textToSend, {
 							reply_parameters: {
 								message_id: +replyId
@@ -319,7 +319,7 @@ export function setup(
 							message.id,
 							tgMessage.message_id.toString()
 						);
-						// }
+						}
 					} catch (err) {
 						logger.error(`[${bridge.name}] Telegram did not accept a message`);
 						logger.error(`[${bridge.name}] Failed message:`, (err as Error).toString());
@@ -472,17 +472,17 @@ export function setup(
 				if (!settings.discord.suppressThisIsPrivateBotMessage) {
 					if (message.type !== MessageType.Default && message.type !== MessageType.Reply) return;
 
-					message
-						.reply(
-							"This is an instance of a TediCross bot, bridging a chat in Telegram with one in Discord. " +
-								"If you wish to use TediCross yourself, please download and create an instance. " +
-								"See https://github.com/TediCross/TediCross"
-						)
-						// Delete it again after some time
-						.then(sleepOneMinute)
-						.then((message: any) => message.delete())
-						.catch(ignoreAlreadyDeletedError as any)
-						.then(() => antiInfoSpamSet.delete(message.channel.id));
+					// message
+					// 	.reply(
+					// 		"This is an instance of a TediCross bot, bridging a chat in Telegram with one in Discord. " +
+					// 			"If you wish to use TediCross yourself, please download and create an instance. " +
+					// 			"See https://github.com/TediCross/TediCross"
+					// 	)
+					// 	// Delete it again after some time
+					// 	.then(sleepOneMinute)
+					// 	.then((message: any) => message.delete())
+					// 	.catch(ignoreAlreadyDeletedError as any)
+					// 	.then(() => antiInfoSpamSet.delete(message.channel.id));
 				} else {
 					antiInfoSpamSet.delete(message.channel.id);
 				}
